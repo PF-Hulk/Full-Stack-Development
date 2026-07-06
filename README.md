@@ -10,7 +10,7 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 |---|---|---|---|
 | `main` | Course overview | Active | Repository README and progress tracker. |
 | `module1` | Module One | Complete | Express application shell with static Travlr HTML, CSS, and images rendered from the `public` folder. |
-| `module2` | Module Two | Complete | Refactored the Express application into an MVC structure with server-side routing, controllers, Handlebars views, and reusable partials. |
+| `module2` | Module Two | Complete | Refactored the Express application into an MVC structure with server side routing, controllers, Handlebars views, and reusable partials. |
 
 ## Module Progress Log
 
