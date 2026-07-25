@@ -11,6 +11,7 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 | `main` | Course overview | Active | Repository README and progress tracker. |
 | `module1` | Module One | Complete | Express application shell with static Travlr HTML, CSS, and images rendered from the `public` folder. |
 | `module2` | Module Two | Complete | Refactored the Express application into an MVC structure with server side routing, controllers, Handlebars views, and reusable partials. |
+| `module4` | Module Four | Complete | Added MongoDB and Mongoose database access, the trip schema and model, seed data, and database verification. |
 
 ## Module Progress Log
 
@@ -54,6 +55,24 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 - Verified that all trip information renders dynamically at `http://localhost:3000/travel`.
 - Prepared the application for MongoDB, Mongoose models, and schemas in Module 4.
 
+### Module 4 – MongoDB, Models, and Schemas
+
+#### Completed:
+- Created and pushed the `module4` branch.
+- Installed Mongoose and added it to the project dependencies.
+- Created `app_server/models/db.js` to manage the MongoDB connection.
+- Added connection event monitoring, error handling, and graceful shutdown logic.
+- Loaded the database module from `app.js`.
+- Created `app_server/models/travlr.js`.
+- Defined the required trip schema fields and created the Mongoose `trips` model.
+- Indexed the trip `code` and `name` fields.
+- Expanded `data/trips.json` to include the complete trip records.
+- Created `app_server/models/seed.js`.
+- Configured the seed script to delete existing trip documents and insert three records.
+- Populated the `travlr` database and verified the `trips` collection with a database inspection tool.
+- Preserved the existing MVC routes, Handlebars views, partials, and static assets.
+- Prepared the application for RESTful API development in Module 5.
+
 ## Application Evolution
 
 ```text
@@ -63,7 +82,9 @@ Module 2: Express MVC routes, controllers, and Handlebars views
     ↓
 Module 3: JSON data passed through the controller and rendered dynamically
     ↓
-Module 4: MongoDB, Mongoose models, and schemas
+Module 4: MongoDB connection, Mongoose trip model, schema, and seed data
+    ↓
+Module 5: RESTful API
 ```
 
 ## Current Setup Notes
@@ -72,16 +93,27 @@ Run the project locally from the `travlr` folder:
 
 ```powershell
 npm install
+```
+
+Make sure MongoDB is running, then populate the database:
+
+```powershell
+node .\app_server\models\seed.js
+```
+
+Start the Express application:
+
+```powershell
 $env:DEBUG="travlr:*"; npm start
 ```
 
-Open the application in a browser:
+Open the application:
 
 ```text
 http://localhost:3000
 ```
 
-Open the dynamic travel page:
+Open the travel page:
 
 ```text
 http://localhost:3000/travel
@@ -89,4 +121,5 @@ http://localhost:3000/travel
 
 ## Current Project Status
 
-The repository is complete through Module 3. The customer facing travel page now uses an MVC architecture and renders its trip content dynamically from structured data. Future branches will continue the project by adding database integration, RESTful API functionality, an Angular single page application, and application security.
+The repository is complete through Module 4. The application now includes an Express MVC structure, JSON-backed Handlebars rendering, a MongoDB connection, a validated Mongoose trip model, and a repeatable database seed process. The next branch will add RESTful API routes that retrieve trip data through the database layer.
+
