@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
 <html>
@@ -17,10 +18,14 @@
             <div class="body">
               <h1>Travel</h1>
 
+              {{#if message}}
+                <p>{{message}}</p>
+              {{/if}}
+
               <ul id="sites">
                 {{#each trips}}
                   <li>
-                    <a href="/travel">
+                    <a href="/api/trips/{{this.code}}">
                       <img src="images/{{this.image}}" alt="Img">
                     </a>
 
