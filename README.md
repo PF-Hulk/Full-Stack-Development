@@ -2,7 +2,7 @@
 
 ## Repository Purpose
 
-This repository contains my CS 465 MEAN stack Travlr Getaways application. The project is built across module branches so each branch represents a stage of full stack web application development.
+This repository contains my CS 465 MEAN stack Travlr Getaways application. The project is developed across module branches so each branch preserves a major stage of the full stack application.
 
 ## Branch Guide
 
@@ -12,6 +12,7 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 | `module1` | Module One | Complete | Express application shell with static Travlr HTML, CSS, and images rendered from the `public` folder. |
 | `module2` | Module Two | Complete | Refactored the Express application into an MVC structure with server side routing, controllers, Handlebars views, and reusable partials. |
 | `module4` | Module Four | Complete | Added MongoDB and Mongoose database access, the trip schema and model, seed data, and database verification. |
+| `module5` | Module Five | Complete | RESTful trip API, parameterized endpoints, Postman testing, HTTP status handling, and an API-driven public travel page. |
 
 ## Module Progress Log
 
@@ -73,6 +74,23 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 - Preserved the existing MVC routes, Handlebars views, partials, and static assets.
 - Prepared the application for RESTful API development in Module 5.
 
+
+### Module 5 – RESTful API
+
+#### Completed:
+- Created a separate top-level `app_api` application.
+- Moved Mongoose models and database access into `app_api/models`.
+- Added API controllers and routes for trip retrieval.
+- Implemented `GET /api/trips` to return all trips.
+- Implemented `GET /api/trips/:tripCode` to return trips by code.
+- Added `200`, `404`, and `500` HTTP status handling with JSON responses.
+- Tested the collection, individual-trip, and invalid-code endpoints with Postman.
+- Refactored the Express travel controller to use Node's built-in Fetch API.
+- Removed direct filesystem access to `data/trips.json` from the customer-facing controller.
+- Added response validation and error messaging to the Handlebars travel page.
+- Verified that `/travel` retrieves and renders MongoDB trip data through the REST API.
+- Pushed the completed RESTful API work to the `module5` branch.
+
 ## Application Evolution
 
 ```text
@@ -84,42 +102,89 @@ Module 3: JSON data passed through the controller and rendered dynamically
     ↓
 Module 4: MongoDB connection, Mongoose trip model, schema, and seed data
     ↓
-Module 5: RESTful API
+Module 5: RESTful API endpoints and API-driven server-side rendering
+    ↓
+Module 6: Angular single-page administration application
+    ↓
+Module 7: Authentication and application security
 ```
 
-## Current Setup Notes
+## Current Architecture
 
-Run the project locally from the `travlr` folder:
+```text
+Customer Browser
+    ↓
+Express MVC Application (app_server)
+    ↓ fetch()
+REST API (app_api)
+    ↓
+Mongoose Models
+    ↓
+MongoDB travlr Database
+```
+
+## Current API Endpoints
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/trips` | Return all trip records as JSON. |
+| `GET` | `/api/trips/:tripCode` | Return the trip matching the supplied code. |
+
+## Local Setup
+
+### Prerequisites
+
+- Node.js
+- npm
+- MongoDB Community Server
+
+### Install and Run
 
 ```powershell
+cd "S:\travlr"
 npm install
+Get-Service MongoDB
+npm start
 ```
 
-Make sure MongoDB is running, then populate the database:
-
-```powershell
-node .\app_server\models\seed.js
-```
-
-Start the Express application:
-
-```powershell
-$env:DEBUG="travlr:*"; npm start
-```
-
-Open the application:
+Open the customer-facing application:
 
 ```text
 http://localhost:3000
 ```
 
-Open the travel page:
+Open the dynamic travel page:
 
 ```text
 http://localhost:3000/travel
 ```
 
+Test the trip collection endpoint:
+
+```text
+http://localhost:3000/api/trips
+```
+
+Test one trip:
+
+```text
+http://localhost:3000/api/trips/GALR210214
+```
+
+## Current Technology Stack
+
+- Node.js
+- Express
+- Handlebars
+- MongoDB
+- Mongoose
+- RESTful APIs
+- Fetch API
+- Postman
+- Git and GitHub
+
 ## Current Project Status
 
-The repository is complete through Module 4. The application now includes an Express MVC structure, JSON-backed Handlebars rendering, a MongoDB connection, a validated Mongoose trip model, and a repeatable database seed process. The next branch will add RESTful API routes that retrieve trip data through the database layer.
+The repository is complete through Module Five. The application now includes a customer-facing Express MVC website, dynamic Handlebars rendering, MongoDB persistence, Mongoose models, reusable RESTful trip endpoints, HTTP error handling, and an Express controller that consumes the API with `fetch()`.
+
 
