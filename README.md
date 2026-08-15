@@ -13,6 +13,7 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 | `module2` | Module Two | Complete | Refactored the Express application into an MVC structure with server side routing, controllers, Handlebars views, and reusable partials. |
 | `module4` | Module Four | Complete | Added MongoDB and Mongoose database access, the trip schema and model, seed data, and database verification. |
 | `module5` | Module Five | Complete | RESTful trip API, parameterized endpoints, Postman testing, HTTP status handling, and an API-driven public travel page. |
+| `module6` | Module Six | Complete | Angular administrator SPA with reusable components, reactive forms, full trip CRUD operations, API integration, and automated testing. |
 
 ## Module Progress Log
 
@@ -91,6 +92,28 @@ This repository contains my CS 465 MEAN stack Travlr Getaways application. The p
 - Verified that `/travel` retrieves and renders MongoDB trip data through the REST API.
 - Pushed the completed RESTful API work to the `module5` branch.
 
+### Module 6 – Angular Single-Page Application
+
+#### Completed:
+- Created and pushed the `module6` branch.
+- Created the Angular administrator SPA in `app_admin`.
+- Added Bootstrap styling and Travlr image assets to the Angular application.
+- Created the Angular `Trip` interface.
+- Developed the Trip Listing component to retrieve and display trip data.
+- Refactored trip rendering into a reusable Trip Card component.
+- Created `TripDataService` to communicate with the Express REST API.
+- Added Angular client-side routing for the trip listing, Add Trip, and Edit Trip views.
+- Created reactive Add Trip and Edit Trip forms with required-field validation.
+- Added Delete functionality to individual trip cards.
+- Added `POST`, `PUT`, and `DELETE` support to the Express REST API while preserving the existing `GET` endpoints.
+- Added CORS support so the Angular application on port `4200` can communicate with the Express API on port `3000`.
+- Verified that added and updated trips persist in MongoDB.
+- Tested the REST endpoints using Postman.
+- Added Angular tests using mock trip data.
+- Passed all six Angular test files and nine tests.
+- Completed a successful Angular production build.
+- Pushed the completed Angular SPA work to the `module6` branch.
+
 ## Application Evolution
 
 ```text
@@ -123,12 +146,31 @@ Mongoose Models
 MongoDB travlr Database
 ```
 
+Module Six adds a separate administrator SPA that uses the same REST API and MongoDB database:
+
+```text
+Administrator Browser
+    ↓
+Angular SPA (app_admin)
+    ↓
+TripDataService
+    ↓ HTTP
+REST API (app_api)
+    ↓
+Mongoose Models
+    ↓
+MongoDB travlr Database
+```
+
 ## Current API Endpoints
 
 | Method | Endpoint | Purpose |
 |---|---|---|
 | `GET` | `/api/trips` | Return all trip records as JSON. |
 | `GET` | `/api/trips/:tripCode` | Return the trip matching the supplied code. |
+| `POST` | `/api/trips` | Add a new trip record. |
+| `PUT` | `/api/trips/:tripCode` | Update the trip matching the supplied code. |
+| `DELETE` | `/api/trips/:tripCode` | Delete the trip matching the supplied code. |
 
 ## Local Setup
 
@@ -137,6 +179,7 @@ MongoDB travlr Database
 - Node.js
 - npm
 - MongoDB Community Server
+- Angular CLI
 
 ### Install and Run
 
@@ -171,6 +214,41 @@ Test one trip:
 http://localhost:3000/api/trips/GALR210214
 ```
 
+### Run the Angular Administrator SPA
+
+From a second PowerShell window:
+
+```powershell
+cd app_admin
+npm install
+ng serve
+```
+
+Open the administrator SPA:
+
+```text
+http://localhost:4200
+```
+
+Run the Angular tests:
+
+```powershell
+ng test --watch=false
+```
+
+Module Six test results:
+
+```text
+Test Files  6 passed (6)
+Tests       9 passed (9)
+```
+
+Create a production build:
+
+```powershell
+ng build
+```
+
 ## Current Technology Stack
 
 - Node.js
@@ -182,9 +260,15 @@ http://localhost:3000/api/trips/GALR210214
 - Fetch API
 - Postman
 - Git and GitHub
+- Angular
+- TypeScript
+- Bootstrap
+- Angular Router
+- Angular Reactive Forms
+- Angular HttpClient
+- RxJS
+- Vitest
 
 ## Current Project Status
 
 The repository is complete through Module Five. The application now includes a customer-facing Express MVC website, dynamic Handlebars rendering, MongoDB persistence, Mongoose models, reusable RESTful trip endpoints, HTTP error handling, and an Express controller that consumes the API with `fetch()`.
-
-
