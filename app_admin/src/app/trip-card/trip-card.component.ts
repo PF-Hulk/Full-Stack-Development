@@ -1,0 +1,73 @@
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Trip } from '../models/trip';
+import { TripDataService } from '../services/trip-data.service';
+
+@Component({
+  selector: 'app-trip-card',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './trip-card.component.html',
+  styleUrl: './trip-card.component.css'
+})
+export class TripCardComponent {
+
+  @Input() trip!: Trip;
+
+  @Output()
+  deleted = new EventEmitter<string>();
+
+  constructor(
+    private router: Router,
+    private tripDataService: TripDataService
+  ) {}
+
+  editTrip(trip: Trip): void {
+
+    localStorage.setItem(
+      'tripCode',
+      trip.code
+    );
+
+    this.router.navigate([
+      '/edit-trip'
+    ]);
+  }
+
+  deleteTrip(trip: Trip): void {
+
+    const confirmed =
+      window.confirm(
+        `Delete ${trip.name} (${trip.code})?`
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.tripDataService
+      .deleteTrip(trip.code)
+      .subscribe({
+
+        next: () => {
+          this.deleted.emit(
+            trip.code
+          );
+        },
+
+        error: (error: unknown) => {
+          console.error(
+            'Unable to delete trip:',
+            error
+          );
+        }
+      });
+  }
+}
