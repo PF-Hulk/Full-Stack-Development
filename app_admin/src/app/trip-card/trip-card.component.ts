@@ -1,35 +1,68 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule
+} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
   Input,
   Output
 } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { Trip } from '../models/trip';
-import { TripDataService } from '../services/trip-data.service';
+import {
+  Router
+} from '@angular/router';
+
+import {
+  Trip
+} from '../models/trip';
+
+import {
+  TripDataService
+} from '../services/trip-data.service';
+
+import {
+  AuthenticationService
+} from '../services/authentication.service';
 
 @Component({
   selector: 'app-trip-card',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './trip-card.component.html',
-  styleUrl: './trip-card.component.css'
+  imports: [
+    CommonModule
+  ],
+  templateUrl:
+    './trip-card.component.html',
+  styleUrl:
+    './trip-card.component.css'
 })
 export class TripCardComponent {
 
-  @Input() trip!: Trip;
+  @Input()
+  trip!: Trip;
 
   @Output()
-  deleted = new EventEmitter<string>();
+  deleted =
+    new EventEmitter<string>();
 
   constructor(
     private router: Router,
-    private tripDataService: TripDataService
+    private tripDataService:
+      TripDataService,
+    private authenticationService:
+      AuthenticationService
   ) {}
 
-  editTrip(trip: Trip): void {
+  isLoggedIn(): boolean {
+
+    return this
+      .authenticationService
+      .isLoggedIn();
+  }
+
+  editTrip(
+    trip: Trip
+  ): void {
 
     localStorage.setItem(
       'tripCode',
@@ -41,7 +74,9 @@ export class TripCardComponent {
     ]);
   }
 
-  deleteTrip(trip: Trip): void {
+  deleteTrip(
+    trip: Trip
+  ): void {
 
     const confirmed =
       window.confirm(
@@ -53,21 +88,26 @@ export class TripCardComponent {
     }
 
     this.tripDataService
-      .deleteTrip(trip.code)
+      .deleteTrip(
+        trip.code
+      )
       .subscribe({
 
         next: () => {
+
           this.deleted.emit(
             trip.code
           );
         },
 
-        error: (error: unknown) => {
-          console.error(
-            'Unable to delete trip:',
-            error
-          );
-        }
+        error:
+          (error: unknown) => {
+
+            console.error(
+              'Unable to delete trip:',
+              error
+            );
+          }
       });
   }
 }

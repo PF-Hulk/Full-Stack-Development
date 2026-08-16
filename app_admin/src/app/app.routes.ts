@@ -1,4 +1,6 @@
-import { Routes } from '@angular/router';
+import {
+  Routes
+} from '@angular/router';
 
 import {
   TripListingComponent
@@ -12,29 +14,40 @@ import {
   EditTripComponent
 } from './edit-trip/edit-trip.component';
 
-export const routes: Routes = [
+import {
+  LoginComponent
+} from './login/login.component';
 
-  {
-    path: '',
-    component:
-      TripListingComponent
-  },
+export const routes:
+  Routes = [
 
-  {
-    path: 'add-trip',
-    component:
-      AddTripComponent
-  },
+    {
+      path: '',
+      component:
+        TripListingComponent
+    },
 
-  {
-    path: 'edit-trip',
-    component:
-      EditTripComponent
-  },
+    {
+      path: 'login',
+      component:
+        LoginComponent
+    },
 
-  {
-    path: '**',
-    redirectTo: ''
-  }
+    {
+      path: 'add-trip',
+      component:
+        AddTripComponent
+    },
 
-];
+    {
+      path: 'edit-trip',
+      component:
+        EditTripComponent
+    },
+
+    {
+      path: '**',
+      redirectTo: ''
+    }
+
+  ];

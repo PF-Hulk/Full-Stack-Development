@@ -1,4 +1,6 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule
+} from '@angular/common';
 
 import {
   ChangeDetectorRef,
@@ -6,9 +8,13 @@ import {
   OnInit
 } from '@angular/core';
 
-import { RouterLink } from '@angular/router';
+import {
+  RouterLink
+} from '@angular/router';
 
-import { Trip } from '../models/trip';
+import {
+  Trip
+} from '../models/trip';
 
 import {
   TripCardComponent
@@ -18,29 +24,54 @@ import {
   TripDataService
 } from '../services/trip-data.service';
 
+import {
+  AuthenticationService
+} from '../services/authentication.service';
+
 @Component({
-  selector: 'app-trip-listing',
+  selector:
+    'app-trip-listing',
+
   imports: [
     CommonModule,
     RouterLink,
     TripCardComponent
   ],
-  templateUrl: './trip-listing.component.html',
-  styleUrl: './trip-listing.component.css'
+
+  templateUrl:
+    './trip-listing.component.html',
+
+  styleUrl:
+    './trip-listing.component.css'
 })
 export class TripListingComponent
   implements OnInit {
 
   trips: Trip[] = [];
 
-  message = 'Loading trips...';
+  message =
+    'Loading trips...';
 
   constructor(
-    private tripDataService: TripDataService,
-    private changeDetectorRef: ChangeDetectorRef
+    private tripDataService:
+      TripDataService,
+
+    private changeDetectorRef:
+      ChangeDetectorRef,
+
+    private authenticationService:
+      AuthenticationService
   ) {}
 
+  isLoggedIn(): boolean {
+
+    return this
+      .authenticationService
+      .isLoggedIn();
+  }
+
   ngOnInit(): void {
+
     this.refreshTrips();
   }
 
@@ -50,32 +81,37 @@ export class TripListingComponent
       .getTrips()
       .subscribe({
 
-        next: (trips: Trip[]) => {
+        next:
+          (trips: Trip[]) => {
 
-          this.trips = trips;
+            this.trips =
+              trips;
 
-          this.message =
-            trips.length
-              ? `There are ${trips.length} trips available.`
-              : 'There are no trips available.';
+            this.message =
+              trips.length
+                ? `There are ${trips.length} trips available.`
+                : 'There are no trips available.';
 
-          this.changeDetectorRef
-            .markForCheck();
-        },
+            this
+              .changeDetectorRef
+              .markForCheck();
+          },
 
-        error: (error: unknown) => {
+        error:
+          (error: unknown) => {
 
-          this.message =
-            'Unable to retrieve trips from the API.';
+            this.message =
+              'Unable to retrieve trips from the API.';
 
-          console.error(
-            this.message,
-            error
-          );
+            console.error(
+              this.message,
+              error
+            );
 
-          this.changeDetectorRef
-            .markForCheck();
-        }
+            this
+              .changeDetectorRef
+              .markForCheck();
+          }
       });
   }
 
@@ -86,13 +122,15 @@ export class TripListingComponent
     this.trips =
       this.trips.filter(
         trip =>
-          trip.code !== tripCode
+          trip.code !==
+          tripCode
       );
 
     this.message =
       `Trip ${tripCode} was deleted.`;
 
-    this.changeDetectorRef
+    this
+      .changeDetectorRef
       .markForCheck();
   }
 }
